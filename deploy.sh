@@ -3,10 +3,6 @@ set -e
 
 # build with vuepress
 npm run docs:build
-npm run docs:build
-
-#cd docs/.vuepress/dist
-cd $WORKSPACE
 
 rm -rf tmp/
 mkdir tmp
