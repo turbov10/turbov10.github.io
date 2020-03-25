@@ -6,7 +6,8 @@ npm run docs:build
 
 cd docs/.vuepress/dist
 
-#git init
+git init
+git config user.name "turbov10"
 git add -A
 git commit -m 'deploy'
 
