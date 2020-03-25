@@ -12,7 +12,6 @@ rm -rf tmp/
 mkdir tmp
 mv ./docs/* tmp/
 mv ./node_modules/* tmp/
-mv ./node_modules/* tmp/
 mv ./.gitignore tmp/
 mv ./.travis.yml tmp/
 mv ./deploy.sh tmp/
