@@ -1,5 +1,4 @@
 # Make sure to throw error when exception caught
-set -e
 
 # build with vuepress
 npm run docs:build
@@ -29,4 +28,3 @@ rm -rf tmp/
 # If publish to some repo of "https://<USERNAME>.github.io/<REPO>"
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
 
-cd -
