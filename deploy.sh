@@ -10,8 +10,10 @@ cd $WORKSPACE
 
 rm -rf tmp/
 mkdir tmp
-mv ./docs/* tmp/
-mv ./node_modules/* tmp/
+if [ --e docs ]; then
+   mv docs/* tmp/
+fi
+
 mv ./.gitignore tmp/
 mv ./.travis.yml tmp/
 mv ./deploy.sh tmp/
@@ -19,6 +21,10 @@ mv ./package.json tmp/
 mv ./yarn.lock tmp/
 
 cp -a tmp/docs/.vuepress/dist/. ./
+
+if [ --e node_modules ]; then
+   rm -rf node_modules/
+fi
 
 rm -rf tmp/
 
