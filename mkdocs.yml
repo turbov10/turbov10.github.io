@@ -1,11 +1,12 @@
 site_name: Turbo-v10 Docs
-minify:
-  minify_html: true
-  minify_js: true
-  minify_css: true
-  htmlmin_opts:
-    remove_comments: true
-  js_files:
-    - assets/js/main.js
-  css_files:
-    - assets/css/style.css
+#plugins:
+#  - minify:
+#      minify_html: true
+#      minify_js: true
+#      minify_css: true
+#      htmlmin_opts:
+#        remove_comments: true
+#      js_files:
+#        - assets/js/main.js
+#      css_files:
+#        - assets/css/style.css
