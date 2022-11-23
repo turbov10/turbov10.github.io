@@ -1,12 +1,27 @@
-site_name: Turbo-v10 Docs
-#plugins:
-#  - minify:
-#      minify_html: true
-#      minify_js: true
-#      minify_css: true
-#      htmlmin_opts:
-#        remove_comments: true
-#      js_files:
-#        - assets/js/main.js
-#      css_files:
-#        - assets/css/style.css
+site_name: Turbo-v10's Documentation
+site_url: https://turbov10.github.io/
+
+repo_url: https://github.com/turbov10/turbov10.github.io/
+repo_name: GitHub
+edit_uri: blob/main/docs/
+remote_name: origin
+remote_branch: gh-deploy
+
+nav:
+  - Home: 'index.md'
+  - 'Cloud Native':
+      - 'Kubernetes (TODO)': 'my-cloudnative/kubernetes.md'
+      - 'containerd (TODO)': 'my-cloudnative/containerd.md'
+  - 'CI/CD':
+      - 'GitHub Actions (Writing)': 'my-cicd/github-actions.md'
+      - 'Harness (TODO)': 'my-cicd/harness.md'
+
+theme:
+  name: readthedocs
+  locale: zh_CN
+  navigation_depth: 4
+  highlightjs: true
+
+docs_dir: docs
+extra_css:
+  - css/extra.css

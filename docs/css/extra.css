@@ -1,0 +1,45 @@
+
+body, p {
+    font-size: 14px;
+    font-weight: 100;
+}
+body, h1, h2, h3, h4, h5, h6, legend {
+    font-family: Lato, proxima-nova, "Helvetica Neue", Arial, sans-serif;
+}
+h1, h2, h3, h4, h5, h6, legend {
+    font-weight: 600;
+}
+code, .rst-content tt {
+    font-size: 90%;
+}
+hr {
+    border-top: 1px solid #c5c5cf;
+}
+a {
+    color: #1daae0ef;
+    text-decoration: none;
+}
+a:hover { color: #0081afef; }
+a:visited { color: #0081afef; }
+.btn {
+    box-shadow: none;
+}
+.wy-nav-content-wrap {
+    background-image: url("../img/background-m45-min.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+.wy-nav-content {
+    max-width: unset;
+    min-height: 100vh;
+    background-color: rgba(248, 240, 235, 0.9);
+}
+.wy-side-nav-search {
+    background-color: transparent;
+}
+.wy-menu-vertical a, .wy-menu-vertical span {
+    line-height: 16px;
+}
+.wy-menu-vertical li ul li a, .wy-menu-vertical a, .wy-side-nav-search a { color: #e3e3e3; }
+.wy-menu-vertical span { color: #969696; }
