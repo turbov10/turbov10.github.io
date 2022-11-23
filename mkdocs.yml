@@ -4,8 +4,8 @@ site_url: https://turbov10.github.io/
 repo_url: https://github.com/turbov10/turbov10.github.io/
 repo_name: GitHub
 edit_uri: blob/main/docs/
-remote_name: origin
-remote_branch: gh-deploy
+#remote_name: origin
+#remote_branch: gh-deploy
 
 nav:
   - Home: 'index.md'
