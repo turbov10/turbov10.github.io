@@ -1,7 +1,7 @@
 
 body, p {
     font-size: 14px;
-    font-weight: 100;
+    font-weight: 400;
 }
 body, h1, h2, h3, h4, h5, h6, legend {
     font-family: Lato, proxima-nova, "Helvetica Neue", Arial, sans-serif;
@@ -39,11 +39,15 @@ a:visited { color: #0081afef; }
     background-color: transparent;
 }
 .wy-menu-vertical a, .wy-menu-vertical span {
-    line-height: 16px;
+    line-height: 18px;
 }
 .wy-menu-vertical li ul li a, .wy-menu-vertical a, .wy-side-nav-search a { color: #e3e3e3; }
 .wy-menu-vertical span { color: #969696; }
 .wy-menu-vertical li.on a, .wy-menu-vertical li.current>a {
     border-bottom: none;
     border-top: none;
+}
+.wy-menu-vertical header, .wy-menu-vertical p.caption {
+    margin: 8px 0 0;
+    font-weight: 400;
 }
