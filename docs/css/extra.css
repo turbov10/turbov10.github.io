@@ -43,3 +43,7 @@ a:visited { color: #0081afef; }
 }
 .wy-menu-vertical li ul li a, .wy-menu-vertical a, .wy-side-nav-search a { color: #e3e3e3; }
 .wy-menu-vertical span { color: #969696; }
+.wy-menu-vertical li.on a, .wy-menu-vertical li.current>a {
+    border-bottom: none;
+    border-top: none;
+}
