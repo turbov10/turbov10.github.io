@@ -10,18 +10,23 @@ edit_uri: blob/main/docs/
 nav:
   - Home: 'index.md'
   - 'Cloud Native':
-      - 'Kubernetes (TODO)': 'my-cloudnative/kubernetes.md'
-      - 'containerd (TODO)': 'my-cloudnative/containerd.md'
+      - '(TODO) Kubernetes': 'my-cloudnative/kubernetes.md'
+      - '(TODO) containerd': 'my-cloudnative/containerd.md'
   - 'CI/CD':
-      - 'GitHub Actions (Writing)': 'my-cicd/github-actions.md'
-      - 'Harness (TODO)': 'my-cicd/harness.md'
+      - 'my-cicd/github-actions.md'
+#      - '(Writing) GitHub Actions': 'my-cicd/github-actions.md'
+      - '(TODO) Harness': 'my-cicd/harness.md'
   - 'Doc Tools':
       - 'MkDocs': 'my-docs/mkdocs.md'
+
+markdown_extensions:
+  - toc:
+      baselevel: 1
 
 theme:
   name: readthedocs
   locale: zh_CN
-  navigation_depth: 4
+  navigation_depth: 1
   highlightjs: true
 
 docs_dir: docs

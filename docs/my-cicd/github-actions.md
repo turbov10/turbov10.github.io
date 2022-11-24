@@ -1,14 +1,21 @@
+---
+title: GitHub Actions
+authors:
+- Nick
+date: 2022-11-24
+---
 
 # Overview
 
-GitHub Actions是一个CI/CD平台
+GitHub Actions是一个持续集成持续部署(CI/CD)的平台。它可以自动化你的构建、测试、部署流程等。
 
-# 组件和概念
+我们可以通过Git仓库里的各种事件来触发GitHub Actions的流程。例如，你可以设置流程在任何Pull Request被创建的时候触发。
+GitHub提供了Linux、Windows、MacOS操作系统的虚拟机，来执行你的自动化流程。
+你甚至可以管理运行在你自己数据中心或者云平台上的服务器，把它作为运行GitHub Actions的流程的宿主机。
+
+## 概念：组件
 
 asdasdasd
-
-## 组件
-asdasdas
 
 ### Workflows
 
