@@ -44,7 +44,7 @@ extra_css:
 # Plugins
 plugins:
   - search
-  - mermaid2
+#  - mermaid2
 #  - redirects:
 #      redirect_maps:
 #        'getting_started/access.md': 'engineer-onboarding/access.md'
