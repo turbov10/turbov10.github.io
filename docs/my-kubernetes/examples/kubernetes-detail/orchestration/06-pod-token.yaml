@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mytoken
+  annotations:
+    kubernetes.io/service-account.name: "default" #必须对应sa
+type: kubernetes.io/service-account-token
+data:
+  # 可以像 Opaque Secret 一样在这里添加额外的键/值偶对
+  extra: YmFyCg==

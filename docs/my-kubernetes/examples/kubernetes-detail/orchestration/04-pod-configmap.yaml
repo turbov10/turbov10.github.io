@@ -1,0 +1,26 @@
+# 创建pod 挂载configmap
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cmtest
+spec:
+  containers:
+  - name: cmtest
+    image: nginx
+    volumeMounts:
+    - name: cm
+      mountPath: "/etc/cm"
+      readOnly: true
+  volumes:
+  - name: cm
+    configMap:
+      name: dbconfig
+---
+# 也可以设置环境变量直接取值
+# env:
+#   - name: ENV
+#     valueFrom:
+#       configMapKeyRef:
+#         name: <configmap name>
+#         key: env # 需要取值的键

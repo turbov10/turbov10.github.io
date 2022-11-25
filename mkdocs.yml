@@ -9,12 +9,15 @@ edit_uri: blob/main/docs/
 
 nav:
   - Home: 'index.md'
+  - 'Kubernetes':
+      - '(Writing) K8S Lesson ': 'my-kubernetes/k8s-lesson-20221124.md'
+      - '(TODO) Kubernetes': 'my-kubernetes/kubernetes.md'
   - 'Cloud Native':
-      - '(TODO) Kubernetes': 'my-cloudnative/kubernetes.md'
+      - '(TODO) Cloud Native Fundamentals': 'my-cloudnative/cloud-native-fundamentals.md'
       - '(TODO) containerd': 'my-cloudnative/containerd.md'
   - 'CI/CD':
-      - 'my-cicd/github-actions.md'
-#      - '(Writing) GitHub Actions': 'my-cicd/github-actions.md'
+#      - 'my-cicd/github-actions.md'
+      - '(Writing) GitHub Actions': 'my-cicd/github-actions.md'
       - '(TODO) Harness': 'my-cicd/harness.md'
   - 'Doc Tools':
       - 'MkDocs': 'my-docs/mkdocs.md'
@@ -22,13 +25,37 @@ nav:
 markdown_extensions:
   - toc:
       baselevel: 1
+      permalink: '#'
 
 theme:
   name: readthedocs
   locale: zh_CN
   navigation_depth: 1
   highlightjs: true
+  hljs_languages:
+    - yaml
+    - rust
+
 
 docs_dir: docs
 extra_css:
   - css/extra.css
+
+# Plugins
+plugins:
+  - search
+  - mermaid2
+#  - redirects:
+#      redirect_maps:
+#        'getting_started/access.md': 'engineer-onboarding/access.md'
+#        'getting_started/agile-practices.md': 'engineer-onboarding/agile-practices.md'
+#        'getting_started/create-cluster.md': 'engineer-onboarding/create-cluster.md'
+#        'getting_started/demos.md': 'engineer-onboarding/demos.md'
+#        'getting_started/faq-troubleshooting.md': 'engineer-onboarding/faq-troubleshooting.md'
+#        'getting_started/getting-started.md': 'engineer-onboarding/getting-started.md'
+#        'getting_started/offboarding.md': 'engineer-onboarding/offboarding.md'
+#        'getting_started/useful-tooling.md': 'engineer-onboarding/useful-tooling.md'
+#        'getting_started/vscode.md': 'engineer-onboarding/vscode.md'
+#        'getting_started/why.md': 'engineer-onboarding/why.md'
+#        'documentation/applications/Media.md': 'how-to/media-howtos.md'
+

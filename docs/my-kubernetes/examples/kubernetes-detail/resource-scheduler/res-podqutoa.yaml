@@ -1,0 +1,29 @@
+apiVersion: v1 
+kind: ResourceQuota 
+metadata: 
+  name: compute-resources 
+spec: 
+  hard: 
+    pods: "4" 
+    #requests.cpu: "1" 
+    #requests.memory: 1Gi 
+    #limits.cpu: "2" 
+    #limits.memory: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-quota-demo
+spec:
+  selector:
+    matchLabels:
+      purpose: quota-demo
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        purpose: quota-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx

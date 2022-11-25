@@ -4,7 +4,6 @@ authors:
 - Nick
 date: 2022-11-24
 ---
-
 # Overview
 
 GitHub Actions是一个持续集成持续部署(CI/CD)的平台。它可以自动化你的构建、测试、部署流程等。
@@ -13,28 +12,37 @@ GitHub Actions是一个持续集成持续部署(CI/CD)的平台。它可以自�
 GitHub提供了Linux、Windows、MacOS操作系统的虚拟机，来执行你的自动化流程。
 你甚至可以管理运行在你自己数据中心或者云平台上的服务器，把它作为运行GitHub Actions的流程的宿主机。
 
+- - -
+
 ## 概念：组件
 
-asdasdasd
+GitHub Actions中主要包含以下要素：
 
-### Workflows
+* Workflows（流程）
+* Events（事件）
+* Jobs（任务）
+* Actions（动作）
+* Runners（运行器）
+
+### Workflows（流程）
 
 Workflows定义在`.github/workflows`目录下
 
-### Events
+### Events（事件）
 
-事件
+TODO
 
-### Jobs
+### Jobs（任务）
 
-任务，是流程中一系列步骤(steps)的集合
+任务，是流程中一系列步骤(steps)的集合。
+TODO
 
-### Actions
+### Actions（动作）
 
 An action is a custom application for the GitHub Actions platform that performs a complex but frequently repeated task.
 Use an action to help reduce the amount of repetitive code that you write in your workflow files.
 
-### Runners
+### Runners（运行器）
 
 Runner是运行Workflows的服务器。每一个Runner在同一时间只能运行一个Job。
 GitHub提供了Ubuntu Linux，Microsoft Windows，MacOS的Runner来运行你的Workflow，并且每个Workflow将会在一个全新构建的虚拟机上运行。
@@ -44,6 +52,7 @@ GitHub也提供了更大型的Runner，请参考[Using larger runners](https://d
 如果你需要使用其他操作系统，或者需要一台特殊硬件规格的机器。
 你可以管理自己的服务器。参考[Hosting your own runners](https://docs.github.com/en/actions/hosting-your-own-runners)
 
+## 概念：流程的定义文件
 
 - - -
 

@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+      cpu: 1
+    defaultRequest:
+      memory: 256Mi
+      cpu: 0.5
+    type: Container
+---
+#不设置
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-mem-demo
+spec:
+  containers:
+  - name: default-mem-demo-ctr
+    image: nginx
+---
+#设置limit
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-mem-demo-2
+spec:
+  containers:
+  - name: default-mem-demo-2-ctr
+    image: nginx
+    resources:
+      limits:
+        memory: 512Mi
+---
+#设置request
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-mem-demo-3
+spec:
+  containers:
+  - name: default-mem-demo-3-ctr
+    image: nginx
+    resources:
+      requests:
+        memory: "128Mi"
+

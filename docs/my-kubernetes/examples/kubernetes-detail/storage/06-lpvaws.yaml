@@ -1,0 +1,68 @@
+# local pv 示例
+# 创建PV
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: example-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Delete
+  storageClassName: local-storage
+  local:
+    path: /usr
+  nodeAffinity:
+    required:
+      nodeSelectorTerms:
+      - matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+          - ip-172-31-21-8.ec2.internal
+---
+# 创建一个SC
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+#创建PVC，尽管有对应的pv，但创建后pending
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: example-local-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: local-storage
+
+---
+# 创建pod后，前面定义的 PVC，会立刻变成 Bound 状态，与前面定义的 PV 绑定在了一起
+kind: Pod
+apiVersion: v1
+metadata:
+  name: lpv-pod
+spec:
+  volumes:
+    - name: example-pv-storage
+      persistentVolumeClaim:
+       claimName: example-local-claim
+  containers:
+    - name: example-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: example-pv-storage
