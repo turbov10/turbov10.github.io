@@ -1,0 +1,27 @@
+{
+  "name": "turbov10.github.io",
+  "version": "1.0.0",
+  "description": "turbo-v10 documentation repository",
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": "git+https://github.com/turbov10/turbov10.github.io.git",
+  "keywords": [
+    "turbov10"
+  ],
+  "author": "Nick Zhong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/turbov10/turbov10.github.io/issues"
+  },
+  "homepage": "https://github.com/turbov10/turbov10.github.io#readme",
+  "devDependencies": {
+    "node-sass": "^8.0.0",
+    "sass-loader": "^13.2.0",
+    "vuepress": "^1.9.7"
+  },
+  "dependencies": {
+    "path": "^0.12.7"
+  }
+}

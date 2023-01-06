@@ -10,15 +10,18 @@ edit_uri: blob/main/docs/
 nav:
   - Home: 'index.md'
   - 'Kubernetes':
-      - '(Writing) K8S Lesson ': 'my-kubernetes/k8s-lesson-20221124.md'
-      - '(TODO) Kubernetes': 'my-kubernetes/kubernetes.md'
+      - 'Kubernetes': 'my-kubernetes/kubernetes.md'
+      - 'Kubernetes 容器运行时安装': 'my-kubernetes/k8s_installation_cr.md'
+      - 'Kubernetes 集群搭建': 'my-kubernetes/k8s_installation.md'
+      - 'Kubernetes 集群常用工具': 'my-kubernetes/k8s_installation_tools.md'
+      - 'Kubernetes 基础课 (2022-11-24)': 'my-kubernetes/k8s-lesson-20221124.md'
   - 'Cloud Native':
-      - '(TODO) Cloud Native Fundamentals': 'my-cloudnative/cloud-native-fundamentals.md'
-      - '(TODO) containerd': 'my-cloudnative/containerd.md'
+      - 'Cloud Native Fundamentals': 'my-cloudnative/cloud-native-fundamentals.md'
+      - 'containerd': 'my-cloudnative/containerd.md'
   - 'CI/CD':
 #      - 'my-cicd/github-actions.md'
-      - '(Writing) GitHub Actions': 'my-cicd/github-actions.md'
-      - '(TODO) Harness': 'my-cicd/harness.md'
+      - 'GitHub Actions': 'my-cicd/github-actions.md'
+      - 'Harness': 'my-cicd/harness.md'
   - 'Doc Tools':
       - 'MkDocs': 'my-docs/mkdocs.md'
 
@@ -35,6 +38,7 @@ theme:
   hljs_languages:
     - yaml
     - rust
+    - sh
 
 
 docs_dir: docs
