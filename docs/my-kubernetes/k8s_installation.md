@@ -270,7 +270,7 @@ sudo setenforce 0 && sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /et
 # 关闭虚拟内存分区，防止 k8s 的 pod 被分配到虚拟内存运行，从而影响产线运行效能。需要 reboot。
 sudo swapoff -a && sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
-sudo yum install -y kubelet kubeadm --disableexcludes=kubernetes
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 ```
 
