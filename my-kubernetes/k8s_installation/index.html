@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh_CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://turbov10.github.io/my-kubernetes/k8s_installation/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Kubernetes 集群搭建 - Turbo-v10's Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Kubernetes \u96c6\u7fa4\u642d\u5efa";
+        var mkdocs_page_input_path = "my-kubernetes/k8s_installation.md";
+        var mkdocs_page_url = "/my-kubernetes/k8s_installation/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sh.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Turbo-v10's Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Kubernetes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../kubernetes/">Kubernetes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_cr/">Kubernetes 容器运行时安装</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Kubernetes 集群搭建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_tools/">Kubernetes 集群常用工具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s-lesson-20221124/">Kubernetes 基础课 (2022-11-24)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Cloud Native</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/cloud-native-fundamentals/">Cloud Native Fundamentals</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/containerd/">containerd</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CI/CD</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/github-actions/">GitHub Actions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/harness/">Harness</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Doc Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-docs/mkdocs/">MkDocs</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Turbo-v10's Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Kubernetes</li>
+      <li class="breadcrumb-item active">Kubernetes 集群搭建</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/turbov10/turbov10.github.io/blob/main/docs/my-kubernetes/k8s_installation.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="kubernetes">Kubernetes 集群搭建<a class="headerlink" href="#kubernetes" title="Permanent link">#</a></h1>
+<p>Training of Cloud-Native Kubernetes for Development.</p>
+<p><strong>内容提要</strong></p>
+<ul>
+<li>容器运行时环境安装 (containerd)</li>
+<li>cgroup 驱动配置</li>
+<li>在 Linux 系统中安装 kubectl 及其插件</li>
+<li>Kubernetes 未来展望</li>
+</ul>
+<hr />
+<h2 id="containerd">容器运行时环境安装 (containerd)<a class="headerlink" href="#containerd" title="Permanent link">#</a></h2>
+<ol>
+<li>安装 containerd</li>
+<li>安装 runc</li>
+<li>安装 CNI 插件</li>
+<li>配置 containerd</li>
+</ol>
+<p>详见：<a href="../k8s_installation_cr/">容器运行时安装</a></p>
+<hr />
+<h2 id="_1">安装和配置先决条件<a class="headerlink" href="#_1" title="Permanent link">#</a></h2>
+<h3 id="ipv4-iptables">转发 IPv4 并让 iptables 看到桥接流量<a class="headerlink" href="#ipv4-iptables" title="Permanent link">#</a></h3>
+<p>为了让 Linux 节点的<code>iptables</code>能够正确查看桥接流量，请确认<code>sysctl</code>配置中的<code>net.bridge.bridge-nf-call-iptables</code>设置为 1。例如：</p>
+<pre><code class="language-sh"># Make folder to save installation packages and configuration files.
+mkdir -p /usr/nzhong/k8s/config &amp;&amp; cd /usr/nzhong/k8s/config
+
+#cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+cat &lt;&lt;EOF | sudo tee /usr/nzhong/k8s/config/k8s_modules_load_d.conf
+overlay
+br_netfilter
+EOF
+
+cp k8s_modules_load_d.conf /etc/modules-load.d/k8s.conf
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+## 设置所需的 sysctl 参数，参数在重新启动后保持不变
+#cat &gt; k8s_sysctl_d.conf &lt;&lt;EOF
+#cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+#net.bridge.bridge-nf-call-iptables  = 1
+#net.bridge.bridge-nf-call-ip6tables = 1
+#net.ipv4.ip_forward                 = 1
+#EOF
+#
+## 应用 sysctl 参数而不重新启动
+#sudo sysctl --system
+
+# 调整内核参数，配置K8S环境
+cat &gt; k8s_sysctl_d.conf &lt;&lt;EOF
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
+net.ipv4.ip_forward=1
+net.ipv4.tcp_tw_recycle=0
+vm.swappiness=0 #禁止使用swap空间，只有当系统OOM时才允许使用
+vm.overcommit_memory=1 #不检查物理内存是否够用
+vm.panic_on_oom=0
+fs.inotify.max_user_instances=8192
+fs.inotify.max_user_watches=1048576
+fs.file-max=52706963
+fs.nr_open=52706963
+net.ipv6.conf.all.disable_ipv6=1
+net.netfilter.nf_conntrack_max=2310720
+EOF
+
+cp k8s_sysctl_d.conf /etc/sysctl.d/kubernetes.conf
+sysctl -p /etc/sysctl.d/kubernetes.conf
+</code></pre>
+<h3 id="cgroup">cgroup 驱动配置<a class="headerlink" href="#cgroup" title="Permanent link">#</a></h3>
+<p>kubelet 和容器运行时需要使用一个 cgroup 驱动。
+关键的一点是 kubelet 和容器运行时需使用相同的 cgroup 驱动并且采用相同的配置。 可用的 cgroup 驱动有两个：</p>
+<ul>
+<li>cgroupfs</li>
+<li>systemd</li>
+</ul>
+<p><a href="https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/#cgroup-drivers">https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/#cgroup-drivers</a></p>
+<h4 id="cgroupfs">cgroupfs 驱动<a class="headerlink" href="#cgroupfs" title="Permanent link">#</a></h4>
+<p>cgroupfs 驱动是 kubelet 中<strong>默认的 cgroup 驱动</strong>。当使用 cgroupfs 驱动时，kubelet 和容器运行时将直接对接 cgroup 文件系统来配置 cgroup。</p>
+<p><strong>当 systemd 是初始化系统时，不推荐使用 cgroupfs 驱动</strong>，因为 systemd 期望系统上只有一个 cgroup 管理器。
+此外，如果你使用 cgroup v2，则应用 systemd cgroup 驱动取代 cgroupfs。</p>
+<h4 id="systemd-cgroup">systemd cgroup 驱动<a class="headerlink" href="#systemd-cgroup" title="Permanent link">#</a></h4>
+<p>同时存在两个 cgroup 管理器将造成系统中针对可用的资源和使用中的资源出现两个视图。
+某些情况下，将 kubelet 和容器运行时配置为使用 cgroupfs、但为剩余的进程使用 systemd 的那些节点将在资源压力增大时变得不稳定。</p>
+<p>当 systemd 是选定的初始化系统时，缓解这个不稳定问题的方法是针对 kubelet 和容器运行时将 systemd 用作 cgroup 驱动。</p>
+<p>要将 systemd 设置为 cgroup 驱动，需编辑 KubeletConfiguration 的 cgroupDriver 选项，并将其设置为 systemd。例如：</p>
+<pre><code class="language-yaml">apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+#...
+cgroupDriver: systemd
+</code></pre>
+<p>如果你将 systemd 配置为 kubelet 的 cgroup 驱动，你也必须将 systemd 配置为容器运行时的 cgroup 驱动。</p>
+<p><a href="https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver">https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/#systemd-cgroup-driver</a></p>
+<h4 id="systemd-containerd-cgroup">将 systemd 配置为 containerd 的 cgroup 驱动<a class="headerlink" href="#systemd-containerd-cgroup" title="Permanent link">#</a></h4>
+<p>使用 containerd 作为 CRI 运行时的必要步骤。
+在路径<code>/etc/containerd/config.toml</code>下找到配置文件。在 Linux 上，containerd 的默认 CRI 套接字是<code>/run/containerd/containerd.sock</code>。</p>
+<p>结合 runc 使用 systemd cgroup 驱动，在 /etc/containerd/config.toml 中设置：</p>
+<pre><code>[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc]
+  ...
+  [plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+</code></pre>
+<blockquote>
+<p>说明：
+如果你从软件包（例如，RPM 或者 .deb）中安装 containerd，你可能会发现其中默认禁止了 CRI 集成插件。</p>
+<p>你需要启用 CRI 支持才能在 Kubernetes 集群中使用 containerd。 要确保 cri 没有出现在 /etc/containerd/config.toml 文件中 disabled_plugins 列表内。如果你更改了这个文件，也请记得要重启 containerd。</p>
+</blockquote>
+<p>如果你应用此更改，请确保重新启动 containerd：</p>
+<pre><code class="language-sh">sudo systemctl restart containerd
+</code></pre>
+<hr />
+<h2 id="linux-kubectl">在 Linux 系统中安装 kubectl 及其插件<a class="headerlink" href="#linux-kubectl" title="Permanent link">#</a></h2>
+<h3 id="kubectl">kubectl 的二进制安装<a class="headerlink" href="#kubectl" title="Permanent link">#</a></h3>
+<p><a href="https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux">https://kubernetes.io/zh-cn/docs/tasks/tools/install-kubectl-linux/#install-kubectl-binary-with-curl-on-linux</a></p>
+<pre><code class="language-sh"># Make folder to save installation packages and configuration files.
+mkdir -p /usr/nzhong/k8s &amp;&amp; cd /usr/nzhong/k8s
+
+# Download the latest stable version.
+#curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl&quot;
+# Get the latest stable version.
+#curl -L -s https://dl.k8s.io/release/stable.txt
+# Download the particular version of &quot;v1.26.0&quot;.
+curl -LO https://dl.k8s.io/release/v1.26.0/bin/linux/amd64/kubectl
+# Install kubectl.
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+# Verify the installed version.
+kubectl version --client
+
+</code></pre>
+<h3 id="kubectl_1">验证 kubectl 配置<a class="headerlink" href="#kubectl_1" title="Permanent link">#</a></h3>
+<p>为了让 kubectl 能发现并访问 Kubernetes 集群，你需要一个 kubeconfig 文件。
+通常 kubectl 的配置信息存放于文件<code>~/.kube/config</code>中。</p>
+<p>通过获取集群状态的方法，检查是否已恰当的配置了 kubectl，如果返回一个 URL，则意味着 kubectl 成功的访问到了你的集群。</p>
+<pre><code class="language-sh">kubectl cluster-info
+</code></pre>
+<h3 id="shell">shell 自动补全功能<a class="headerlink" href="#shell" title="Permanent link">#</a></h3>
+<p><em>TODO</em></p>
+<h3 id="kubectl-convert">安装 kubectl convert 插件<a class="headerlink" href="#kubectl-convert" title="Permanent link">#</a></h3>
+<p>kubectl-convert 允许你将清单在不同 API 版本间转换。
+这对于将清单迁移到新的 Kubernetes 发行版上未被废弃的 API 版本时尤其有帮助。</p>
+<pre><code class="language-sh"># Download the latest kubectl-convert package.
+curl -LO &quot;https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl-convert&quot;
+# Install kubectl-convert.
+sudo install -o root -g root -m 0755 kubectl-convert /usr/local/bin/kubectl-convert
+# Verify the installed version.
+kubectl convert --help
+</code></pre>
+<hr />
+<h2 id="kubeadm">使用 kubeadm 引导集群<a class="headerlink" href="#kubeadm" title="Permanent link">#</a></h2>
+<p><strong>准备工作</strong></p>
+<ul>
+<li>Linux 主机。Kubernetes 项目为基于 Debian 和 Red Hat 的 Linux 发行版以及一些不提供包管理器的发行版提供通用的指令。</li>
+<li>每台机器 2 GB 或更多的 RAM（如果少于这个数字将会影响你应用的运行内存）。</li>
+<li>CPU 2 核心及以上。</li>
+<li>集群中的所有机器的网络彼此均能相互连接（公网和内网都可以）。</li>
+<li>节点之中不可以有重复的主机名、MAC 地址或 product_uuid。</li>
+<li>开启机器上的某些端口。</li>
+<li>禁用交换分区。为了保证 kubelet 正常工作，你必须禁用交换分区。</li>
+</ul>
+<h3 id="mac-product_uuid">确保每个节点上 MAC 地址和 product_uuid 的唯一性<a class="headerlink" href="#mac-product_uuid" title="Permanent link">#</a></h3>
+<p>通过命令<code>ip link</code>或<code>ifconfig -a</code>获取网络接口的 MAC 地址。</p>
+<p>使用命令<code>sudo cat /sys/class/dmi/id/product_uuid</code>对 product_uuid 校验</p>
+<p><strong>重命名主机名使节点方便管理</strong></p>
+<pre><code class="language-sh"># 建议手工操作
+hostname ${NEW_HOSTNAME}
+echo &quot;${NEW_HOSTNAME}&quot; &gt; /etc/hostname
+echo &quot;HOSTNAME=${NEW_HOSTNAME}&quot; &gt;&gt; /etc/sysconfig/network
+echo &quot;${IP_ADDRESS} ${NEW_HOSTNAME} ${NEW_HOSTNAME}&quot; &gt;&gt; /etc/hosts
+</code></pre>
+<h3 id="_2">检查所需端口<a class="headerlink" href="#_2" title="Permanent link">#</a></h3>
+<p>可以使用 netcat 之类的工具来检查端口是否启用：</p>
+<pre><code class="language-sh">nc 127.0.0.1 6443
+</code></pre>
+<h3 id="kubeadmkubelet">安装 kubeadm、kubelet<a class="headerlink" href="#kubeadmkubelet" title="Permanent link">#</a></h3>
+<ul>
+<li><strong>kubeadm</strong>：用来初始化集群的指令。</li>
+<li><strong>kubelet</strong>：在集群中的每个节点上用来启动 Pod 和容器等。</li>
+<li><strong>kubectl</strong>：用来与集群通信的命令行工具。</li>
+</ul>
+<p>基于 Red Hat 系发行版</p>
+<pre><code class="language-sh"># 配置yum repo，墙内用户可配置其他源
+cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
+EOF
+
+# Install epel-release as yum repo for CentOS 7 servers.
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+
+# 将 SELinux 设置为 permissive 模式（相当于将其禁用）
+# 通过运行命令 setenforce 0 和 sed ... 将 SELinux 设置为 permissive 模式可以有效地将其禁用。这是允许容器访问主机文件系统所必需的，而这些操作是为了例如 Pod 网络工作正常。
+# 你必须这么做，直到 kubelet 做出对 SELinux 的支持进行升级为止。
+sudo setenforce 0 &amp;&amp; sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+# 关闭虚拟内存分区，防止 k8s 的 pod 被分配到虚拟内存运行，从而影响产线运行效能。需要 reboot。
+sudo swapoff -a &amp;&amp; sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
+
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+sudo systemctl enable --now kubelet
+</code></pre>
+<h3 id="kubeadm_1">kubeadm 初始化集群<a class="headerlink" href="#kubeadm_1" title="Permanent link">#</a></h3>
+<p>初始化 kubeadm 配置文件</p>
+<pre><code class="language-sh"># Make folder to save installation packages and configuration files.
+mkdir -p /usr/nzhong/k8s/config &amp;&amp; cd /usr/nzhong/k8s/config
+
+# Export default init config.
+kubeadm config print init-defaults &gt; kubeadm-config-init-defaults.yaml
+# Export default join config.
+kubeadm config print join-defaults &gt; kubeadm-config-join-defaults.yaml
+</code></pre>
+<p>根据 <a href="#kubeadm-v1beta3">kubeadm 配置 (v1beta3)</a> 手工修改上述生成的默认配置文件，<strong>删除你不确定的字段</strong>。</p>
+<h4 id="kubeadm-v1beta3">kubeadm 配置 (v1beta3)<a class="headerlink" href="#kubeadm-v1beta3" title="Permanent link">#</a></h4>
+<p>init-defaults</p>
+<pre><code class="language-yaml">apiVersion: kubeadm.k8s.io/v1beta3
+bootstrapTokens:
+- groups:
+  - system:bootstrappers:kubeadm:default-node-token
+  token: abcdef.0123456789abcdef
+  ttl: 24h0m0s
+  usages:
+  - signing
+  - authentication
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 1.2.3.4
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///var/run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
+  name: node
+  taints: null
+---
+apiServer:
+  timeoutForControlPlane: 4m0s
+apiVersion: kubeadm.k8s.io/v1beta3
+certificatesDir: /etc/kubernetes/pki
+clusterName: kubernetes
+controllerManager: {}
+dns: {}
+etcd:
+  local:
+    dataDir: /var/lib/etcd
+imageRepository: registry.k8s.io
+kind: ClusterConfiguration
+kubernetesVersion: 1.26.0
+networking:
+  dnsDomain: cluster.local
+  serviceSubnet: 10.96.0.0/12
+scheduler: {}
+</code></pre>
+<p>更新</p>
+<pre><code class="language-yaml">apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: 10.225.36.57
+  bindPort: 6443
+nodeRegistration:
+  criSocket: unix:///run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
+  name: k8s-master-1
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+certificatesDir: /etc/kubernetes/pki
+clusterName: nzhong-k8s-hz01
+#controllerManager: {}
+#dns: {}
+apiServer:
+  timeoutForControlPlane: 4m0s
+etcd:
+  local:
+    imageRepository: &quot;gcr.io/etcd-development&quot;
+    imageTag: &quot;v3.4.23&quot;
+    dataDir: /var/lib/etcd
+imageRepository: registry.k8s.io
+kind: ClusterConfiguration
+kubernetesVersion: 1.26.0
+networking:
+  dnsDomain: cluster.local
+  serviceSubnet: 10.96.0.0/16
+  podSubnet: 10.100.0.0/16
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+# kubelet specific options here
+cgroupDriver: systemd
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+</code></pre>
+<h4 id="_3">初始化控制平面(主控节点)<a class="headerlink" href="#_3" title="Permanent link">#</a></h4>
+<pre><code class="language-sh">kubeadm init --config=kubeadm-init.yaml --upload-certs | tee kubeadm-log.log
+
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre>
+<p>root用户</p>
+<pre><code class="language-sh">export KUBECONFIG=/etc/kubernetes/admin.conf
+</code></pre>
+<h4 id="cni">CNI插件配置<a class="headerlink" href="#cni" title="Permanent link">#</a></h4>
+<pre><code class="language-sh">cat &lt;&lt; EOF | tee /etc/cni/net.d/10-containerd-net.conflist
+{
+ &quot;cniVersion&quot;: &quot;1.0.0&quot;,
+ &quot;name&quot;: &quot;containerd-net&quot;,
+ &quot;plugins&quot;: [
+   {
+     &quot;type&quot;: &quot;bridge&quot;,
+     &quot;bridge&quot;: &quot;cni0&quot;,
+     &quot;isGateway&quot;: true,
+     &quot;ipMasq&quot;: true,
+     &quot;promiscMode&quot;: true,
+     &quot;ipam&quot;: {
+       &quot;type&quot;: &quot;host-local&quot;,
+       &quot;ranges&quot;: [
+         [{
+           &quot;subnet&quot;: &quot;10.96.0.0/16&quot;
+         }],
+         [{
+           &quot;subnet&quot;: &quot;10.100.0.0/16&quot;
+         }]
+       ],
+       &quot;routes&quot;: [
+         { &quot;dst&quot;: &quot;0.0.0.0/0&quot; },
+         { &quot;dst&quot;: &quot;::/0&quot; }
+       ]
+     }
+   },
+   {
+     &quot;type&quot;: &quot;portmap&quot;,
+     &quot;capabilities&quot;: {&quot;portMappings&quot;: true},
+     &quot;externalSetMarkChain&quot;: &quot;KUBE-MARK-MASQ&quot;
+   }
+ ]
+}
+EOF
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../k8s_installation_cr/" class="btn btn-neutral float-left" title="Kubernetes 容器运行时安装"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../k8s_installation_tools/" class="btn btn-neutral float-right" title="Kubernetes 集群常用工具">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/turbov10/turbov10.github.io/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../k8s_installation_cr/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../k8s_installation_tools/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

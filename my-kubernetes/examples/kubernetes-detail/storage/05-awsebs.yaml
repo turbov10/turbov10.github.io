@@ -1,0 +1,25 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: aws-ebs
+provisioner: kubernetes.io/aws-ebs # Amazon EBS CSI driver
+parameters:
+  type: gp2
+volumeBindingMode: WaitForFirstConsumer
+reclaimPolicy: Delete
+mountOptions:
+- debug
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-awsebs
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: aws-ebs
+  resources:
+    requests:
+      storage: 1Gi
+---
+# todo: add pod

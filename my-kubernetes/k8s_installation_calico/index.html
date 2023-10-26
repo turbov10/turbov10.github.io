@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh_CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://turbov10.github.io/my-kubernetes/k8s_installation_calico/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Kubernetes 安装 Calico 网络组件 - Turbo-v10's Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Kubernetes \u5b89\u88c5 Calico \u7f51\u7edc\u7ec4\u4ef6";
+        var mkdocs_page_input_path = "my-kubernetes/k8s_installation_calico.md";
+        var mkdocs_page_url = "/my-kubernetes/k8s_installation_calico/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sh.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Turbo-v10's Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Kubernetes</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../kubernetes/">Kubernetes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_cr/">Kubernetes 容器运行时安装</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation/">Kubernetes 集群搭建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_tools/">Kubernetes 集群常用工具</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s-lesson-20221124/">Kubernetes 基础课 (2022-11-24)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Cloud Native</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/cloud-native-fundamentals/">Cloud Native Fundamentals</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/containerd/">containerd</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CI/CD</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/github-actions/">GitHub Actions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/harness/">Harness</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Doc Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-docs/mkdocs/">MkDocs</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Turbo-v10's Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Kubernetes 安装 Calico 网络组件</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/turbov10/turbov10.github.io/blob/main/docs/my-kubernetes/k8s_installation_calico.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="kubernetes-calico">Kubernetes 安装 Calico 网络组件<a class="headerlink" href="#kubernetes-calico" title="Permanent link">#</a></h1>
+<p><a href="https://www.cnblogs.com/LiuChang-blog/p/15311434.html">参考</a></p>
+<hr />
+<h2 id="kubernetes-api-datastore-calico50">方式一: 使用 Kubernetes API datastore 安装 Calico，50个或更少节点<a class="headerlink" href="#kubernetes-api-datastore-calico50" title="Permanent link">#</a></h2>
+<pre><code class="language-sh">wget https://docs.projectcalico.org/manifests/calico.yaml --no-check-certificate
+
+
+</code></pre>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/turbov10/turbov10.github.io/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

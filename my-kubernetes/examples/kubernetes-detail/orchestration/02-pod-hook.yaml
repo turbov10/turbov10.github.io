@@ -1,0 +1,16 @@
+### 构建带hook的Pod
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-hook
+spec:
+  containers:
+  - name: pod-hook
+    image: nginx
+    lifecycle:
+      postStart:
+        exec:
+          command: ["/bin/sh", "-c", "echo Hello > /tmp/hello"]
+      preStop:
+        exec:
+          command: ["/usr/sbin/nginx","-s","quit"]

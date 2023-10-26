@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh_CN" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://turbov10.github.io/my-kubernetes/k8s-lesson-20221124/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Kubernetes 基础课 (2022-11-24) - Turbo-v10's Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../css/extra.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Kubernetes \u57fa\u7840\u8bfe (2022-11-24)";
+        var mkdocs_page_input_path = "my-kubernetes/k8s-lesson-20221124.md";
+        var mkdocs_page_url = "/my-kubernetes/k8s-lesson-20221124/";
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sh.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> Turbo-v10's Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Kubernetes</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../kubernetes/">Kubernetes</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_cr/">Kubernetes 容器运行时安装</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation/">Kubernetes 集群搭建</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../k8s_installation_tools/">Kubernetes 集群常用工具</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Kubernetes 基础课 (2022-11-24)</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Cloud Native</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/cloud-native-fundamentals/">Cloud Native Fundamentals</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/containerd/">containerd</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">CI/CD</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/github-actions/">GitHub Actions</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-cicd/harness/">Harness</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Doc Tools</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../my-docs/mkdocs/">MkDocs</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">Turbo-v10's Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" aria-label="Docs"></a></li>
+          <li class="breadcrumb-item">Kubernetes</li>
+      <li class="breadcrumb-item active">Kubernetes 基础课 (2022-11-24)</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/turbov10/turbov10.github.io/blob/main/docs/my-kubernetes/k8s-lesson-20221124.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="kubernetes-2022-11-24">Kubernetes 基础课 (2022-11-24)<a class="headerlink" href="#kubernetes-2022-11-24" title="Permanent link">#</a></h1>
+<p>Training of Cloud-Native Kubernetes for Development.</p>
+<p><strong>内容提要</strong></p>
+<ul>
+<li>Kubernetes 存储</li>
+<li>Kubernetes 编程(Controller、Operator、CRD)</li>
+<li>Kubernetes 调度与资源管理</li>
+<li>Kubernetes 未来展望</li>
+</ul>
+<hr />
+<h2 id="kubernetes">Kubernetes 存储<a class="headerlink" href="#kubernetes" title="Permanent link">#</a></h2>
+<h3 id="_1">有状态应用的存储状态<a class="headerlink" href="#_1" title="Permanent link">#</a></h3>
+<ul>
+<li>有状态应用的存储拓扑</li>
+<li>无状态应用与存储分离</li>
+</ul>
+<h3 id="1">1. 容器数据的本地(临时)存储<a class="headerlink" href="#1" title="Permanent link">#</a></h3>
+<ul>
+<li>卷(Volume):将一个宿主机上的目 录，跟一个容器里的目录绑定挂载 在了一起。</li>
+<li>使用volumeMounts挂载:声明卷在 容器中的挂载位置</li>
+<li>本地存储常用类型<ul>
+<li>emptyDir</li>
+<li>hostPath</li>
+</ul>
+</li>
+</ul>
+<h4 id="-emptydir">本地存储 - emptyDir<a class="headerlink" href="#-emptydir" title="Permanent link">#</a></h4>
+<ul>
+<li>与 Pod 同生命周期</li>
+<li>初始化后为空</li>
+<li>用途<ul>
+<li>缓存空间</li>
+<li>临时存储</li>
+<li>Web server保存文件</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-yaml">apiVersion: v1
+kind: Pod
+metadata:
+  name: temp-volume-pod
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    volumeMounts:
+    - mountPath: /cache-volume
+      name: cache-volume
+    - mountPath: /test-hostpath
+      name: test-volume
+  volumes:
+  - name: cache-volume
+    emptyDir: {}
+  - name: test-volume
+    hostPath:
+      path: /etc # 宿主上目录位置
+      type: Directory # 可选
+</code></pre>
+<h4 id="-hostpath">本地存储 - hostPath<a class="headerlink" href="#-hostpath" title="Permanent link">#</a></h4>
+<ul>
+<li>将宿主机目录挂载到Pod</li>
+<li>用途<ul>
+<li>需要访问Docker内部文件(/var/lib/docker)</li>
+<li>在容器中运行cAdvisor时，挂载/sys。</li>
+<li>获取hostPath的数据作为Pod创建的前置条件</li>
+</ul>
+</li>
+<li>type类型<ul>
+<li>DirectoryOrCreate</li>
+<li>Directory</li>
+<li>FileOrCreate</li>
+<li>File</li>
+<li>......</li>
+</ul>
+</li>
+<li>尽量避免使用hostPat，有风险<ul>
+<li>有限使用</li>
+<li>readonly挂载</li>
+</ul>
+</li>
+</ul>
+<h3 id="2">2. 容器数据的持久化存储<a class="headerlink" href="#2" title="Permanent link">#</a></h3>
+<ul>
+<li>本地临时卷的缺点<ul>
+<li>不能持久化;不能共享;不能迁移</li>
+</ul>
+</li>
+<li>持久化卷(Persistent Volume)<ul>
+<li>独立于Pod生命周期</li>
+<li>解耦无状态的应用和有状态的存储</li>
+<li>基于专门的、远程存储服务</li>
+</ul>
+</li>
+<li>支持类型:<ul>
+<li>云平台存储:AWS EBS、AzureDisk等</li>
+<li>CephFS、CSI、NFS等等</li>
+</ul>
+</li>
+<li><a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes">types-of-persistent-volumes</a></li>
+</ul>
+<h4 id="pv-pvc">PV 和 PVC<a class="headerlink" href="#pv-pvc" title="Permanent link">#</a></h4>
+<ul>
+<li>PV(Persistentvolume)<ul>
+<li>持久化卷</li>
+<li>定义一个挂载在宿主机的目录或远端</li>
+</ul>
+</li>
+<li>PVC(Persistent volume claim)<ul>
+<li>描述Pod想使用的存储相关的属性</li>
+</ul>
+</li>
+<li>关系：类似抽象与继承</li>
+<li>为什么要设计PV、PVC？<ul>
+<li>管理员开发PV，提供接口</li>
+<li>开发人员开发PV，只需要关心使用的持久化存储属性</li>
+</ul>
+</li>
+</ul>
+<h4 id="pvpersistent-volume">PV(Persistent Volume)<a class="headerlink" href="#pvpersistent-volume" title="Permanent link">#</a></h4>
+<ul>
+<li>核心字段<ul>
+<li>capacity</li>
+<li>volumeMode</li>
+<li>accessMode</li>
+<li>persistentVolumeReclaimPolicy</li>
+<li>storageClassName</li>
+<li>mountOptions</li>
+</ul>
+</li>
+<li>阶段(phase)<ul>
+<li>Available(可用)</li>
+<li>Bound(已绑定)</li>
+<li>Released(已释放)</li>
+<li>Failed(失败)</li>
+</ul>
+</li>
+</ul>
+<h4 id="pvcpersistent-volume-claim">PVC(Persistent Volume Claim)<a class="headerlink" href="#pvcpersistent-volume-claim" title="Permanent link">#</a></h4>
+<ul>
+<li>描述要使用的存储属性</li>
+<li>无需关注存储实现</li>
+<li>核心字段<ul>
+<li>accessMode</li>
+<li>volumeMode</li>
+<li>resources</li>
+<li>storageClassName</li>
+<li>selector:matchLabels、matchExpressions</li>
+</ul>
+</li>
+<li>绑定条件<ul>
+<li>spec 匹配</li>
+<li>StorageClassName 一致</li>
+</ul>
+</li>
+</ul>
+<h4 id="provisioning">绑定(provisioning)工作原理<a class="headerlink" href="#provisioning" title="Permanent link">#</a></h4>
+<ul>
+<li>两个阶段<ul>
+<li>Attach阶段</li>
+<li>Mount阶段</li>
+</ul>
+</li>
+<li>控制器<ul>
+<li>AttachDetachController -&gt; kube-controller-manager</li>
+<li>VolumeManagerReconciler -&gt; worker node</li>
+</ul>
+</li>
+</ul>
+<h5 id="_2">静态绑定的缺点<a class="headerlink" href="#_2" title="Permanent link">#</a></h5>
+<p>管理员需要手动创建PV。集群规模大时，需要创建一大堆PV，维护不便</p>
+<h4 id="dynamic-provisioning">动态绑定(Dynamic Provisioning)<a class="headerlink" href="#dynamic-provisioning" title="Permanent link">#</a></h4>
+<ul>
+<li>StorageClass</li>
+<li>创建PV模板</li>
+</ul>
+<h5 id="storageclass">使用 StorageClass 动态绑定<a class="headerlink" href="#storageclass" title="Permanent link">#</a></h5>
+<ul>
+<li>存储类(StorageClass)</li>
+<li>创建PV模板(对象)<ul>
+<li>属性</li>
+<li>存储插件</li>
+</ul>
+</li>
+<li>字段<ul>
+<li>Provisioner</li>
+<li>Parameter</li>
+<li>reclaimPolicy 回收策略</li>
+</ul>
+</li>
+</ul>
+<h5 id="_3">其他<a class="headerlink" href="#_3" title="Permanent link">#</a></h5>
+<ul>
+<li>要删除PV/PVC，先删使用者(Pod)</li>
+<li>生产环境一般都是通过动态绑定的方式</li>
+</ul>
+<h3 id="3">3. 本地持久卷<a class="headerlink" href="#3" title="Permanent link">#</a></h3>
+<ul>
+<li>Local Persistent Volume(LPV)</li>
+<li>本地存储需求 (性能)</li>
+<li>一般是额外磁盘，不应使用本地磁盘</li>
+<li>限制：<ul>
+<li>不支持动态绑定</li>
+<li>Node调度问题</li>
+<li>跨区问题</li>
+<li><strong>必须使用节点亲和性nodeAffinity确保pod被调度到当前node</strong></li>
+</ul>
+</li>
+<li>延迟绑定<ul>
+<li>WaitForFirstConsumer</li>
+<li>等待Pod创建</li>
+<li>绑定PV和PVC</li>
+</ul>
+</li>
+</ul>
+<h4 id="lpv">LPV的延迟绑定<a class="headerlink" href="#lpv" title="Permanent link">#</a></h4>
+<p>例如WaitForFirstConsumer
+为什么LPV要有延迟绑定？
+调度器考虑卷分布的原则，防止Pod被亲和性绑定至不同的node</p>
+<h3 id="-csi">容器存储接口 - CSI<a class="headerlink" href="#-csi" title="Permanent link">#</a></h3>
+<ul>
+<li>容器存储接口</li>
+<li>组件<ul>
+<li>DriverRegistrar</li>
+<li>ExternalProvisioner</li>
+<li>ExternalAttacher</li>
+</ul>
+</li>
+<li>CSI插件服务<ul>
+<li>Identity</li>
+<li>Controller</li>
+<li>Node</li>
+</ul>
+</li>
+<li>需要开发自定义存储接口时，参考
+<a href="https://github.com/container-storage-interface/spec">https://github.com/container-storage-interface/spec</a></li>
+</ul>
+<h3 id="kubernetes_1">Kubernetes 存储小结<a class="headerlink" href="#kubernetes_1" title="Permanent link">#</a></h3>
+<ul>
+<li>临时卷</li>
+<li>持久化卷</li>
+<li>静态、动态绑定</li>
+<li>本地持久卷</li>
+<li>CSI接口</li>
+</ul>
+<hr />
+<h2 id="kubernetes_2">Kubernetes 编程范式<a class="headerlink" href="#kubernetes_2" title="Permanent link">#</a></h2>
+<h3 id="_4">什么是编程范式<a class="headerlink" href="#_4" title="Permanent link">#</a></h3>
+<ul>
+<li>Programming paradigm，又叫编程范型、编程范式或程序设计法，是指软 件工程中的一类典型的编程风格。</li>
+<li>分类<ul>
+<li>命令式编程</li>
+<li>面向过程编程</li>
+<li>面向对象编程</li>
+<li>函数式编程</li>
+</ul>
+</li>
+<li>Kubernetes的编程范式/风格?</li>
+</ul>
+<h3 id="_5">声明式编程<a class="headerlink" href="#_5" title="Permanent link">#</a></h3>
+<ul>
+<li>声明式编程(Declarative programming)是一种编程范式，与命令式编程相对立。
+它描述想要达到的目标状态，让计算机(工具)内部自己实现如何达到目标。
+而命令式编程则需要用算法来明确的指出每一步该怎么做。</li>
+<li>命令式(Imperative):告诉系统怎么做(一系列动作)</li>
+<li>声明式(Declarative):告诉系统要什么(目标状态)</li>
+</ul>
+<h3 id="kubernetes-api">Kubernetes 里的声明式API<a class="headerlink" href="#kubernetes-api" title="Permanent link">#</a></h3>
+<ul>
+<li>create、replace、apply，哪个才是声明式?</li>
+<li>声明式API的能力:Patch</li>
+<li>Kubernetes 编排核心:声明、定义、调谐(reconcile)</li>
+</ul>
+<h3 id="kubernetes-api_1">Kubernetes API对象<a class="headerlink" href="#kubernetes-api_1" title="Permanent link">#</a></h3>
+<ul>
+<li>操作Kubernetes对象(CRUD)都需要使用KubernetesAPI</li>
+<li>树形结构</li>
+<li>资源路径<ul>
+<li>Group</li>
+<li>Version</li>
+<li>Resource</li>
+</ul>
+</li>
+<li>核心对象没有Group</li>
+<li>Group通过功能划分</li>
+<li>支持多版本</li>
+<li>API扩展<ul>
+<li>自定义资源(CRD)</li>
+<li>聚合层</li>
+</ul>
+</li>
+</ul>
+<h4 id="kubernetes-api_2">Kubernetes 声明式API工作原理<a class="headerlink" href="#kubernetes-api_2" title="Permanent link">#</a></h4>
+<ul>
+<li>解析过程<ul>
+<li>匹配组</li>
+<li>匹配版本</li>
+<li>匹配资源类型</li>
+</ul>
+</li>
+<li>对象创建过程<ul>
+<li>发起创建请求</li>
+<li>过滤</li>
+<li>绑定处理器(增删改查对应的handler)</li>
+<li>找到对象定义</li>
+<li>创建资源</li>
+<li>准入、验证</li>
+<li>序列化存储</li>
+</ul>
+</li>
+</ul>
+<h4 id="api">API 请求生命周期<a class="headerlink" href="#api" title="Permanent link">#</a></h4>
+<p>Request
+-&gt; API HTTP handler
+-&gt; 鉴权(authentication/authorization)
+-&gt; 变更准入控制器 mutating admission controller &lt;-&gt; mutating admission webhooks
+-&gt; object schema validation
+-&gt; 验证准入控制器 validating admission controller &lt;-&gt; validating admission webhooks
+-&gt; persisted to ETCD</p>
+<h3 id="kubernetes-controller">Kubernetes 编程核心 - Controller<a class="headerlink" href="#kubernetes-controller" title="Permanent link">#</a></h3>
+<ul>
+<li>一个控制器至少追踪某种资源，负责将资源的当前状态修改为用户期望的状态 （即调协过程）</li>
+<li>现实态 -&gt; 期望态 （面向终态的设计）</li>
+<li>控制循环 Control loop</li>
+<li>内置控制器</li>
+<li>自定义控制器</li>
+</ul>
+<h4 id="_6">控制器工作原理<a class="headerlink" href="#_6" title="Permanent link">#</a></h4>
+<p>实现流程
+* main函数
+* 控制器的定义
+* 控制器业务逻辑</p>
+<p>API Server
+-&gt; Informer
+-&gt; Work Queue
+-&gt; Control Loop</p>
+<h5 id="informer">Informer 总结<a class="headerlink" href="#informer" title="Permanent link">#</a></h5>
+<ul>
+<li>带有本地缓存和索引机制的、可以注册 EventHandler 的 client</li>
+<li>它是自定义控制器跟APIServer进行数据同步的 重要组件</li>
+<li>通过ListAndWatch的方法，把APIServer中的 API对象缓存在了本地，并负责更新和维护这个 缓存</li>
+<li>职责一:获取对象变化，更新本地缓存</li>
+<li>职责二:根据事件，触发对应的处理器</li>
+</ul>
+<h5 id="controller">Controller 总结<a class="headerlink" href="#controller" title="Permanent link">#</a></h5>
+<ul>
+<li>调用controller.Run()启动“控制循环”<ul>
+<li>等待Informer完成一次本地缓存的数据同步操作</li>
+<li>通过goroutine启动一个“无限循环”的任务。每一个循环周期，执行业务逻辑</li>
+</ul>
+</li>
+<li>业务逻辑:<ul>
+<li>出队列，拿到key，从informer缓存中拿到对象</li>
+<li>对比“期望状态”和“实际状态”，完成调谐reconcile过程</li>
+</ul>
+</li>
+</ul>
+<h4 id="kubernetes_3">Kubernetes 编程范式的核心思路<a class="headerlink" href="#kubernetes_3" title="Permanent link">#</a></h4>
+<ul>
+<li>Informer，就是一个自带缓存和索引机制，可以触发Handler的客户端库</li>
+<li>使用Reflector包，通过ListAndWatch机制获取并监视API对象变化</li>
+<li>入队协同(Informer &amp; reflector):DeltaFIFOQueue</li>
+<li>出队协同(Informer &amp; control loop):WorkQueue</li>
+<li>实现期望状态与实际状态的调谐(reconcile)</li>
+</ul>
+<h3 id="crd">自定义资源定义(CRD)<a class="headerlink" href="#crd" title="Permanent link">#</a></h3>
+<ul>
+<li>
+<p>Why</p>
+<ul>
+<li>K8S现有资源不能满足需求</li>
+</ul>
+</li>
+<li>
+<p>自定义资源 - CR</p>
+</li>
+<li>自定义资源定义 - CRD</li>
+<li>自定义控制器</li>
+</ul>
+<p>CRD是抽象 -&gt; schema level
+CR是实例 -&gt; instance level</p>
+<h4 id="operator">Operator<a class="headerlink" href="#operator" title="Permanent link">#</a></h4>
+<ul>
+<li>是描述、部署和管理kubernetes应用的一 套机制，从实现上来说，可以将其理解为 CRD 配合可选的 webhook 与 controller 来 实现用户业务逻辑</li>
+<li>Operator=CRD+Webhook+Controller</li>
+<li>通常以Pod方式部署</li>
+<li>常见应用场景</li>
+<li>按需部署应用</li>
+<li>应用的安装升级</li>
+<li>工作机制:利用了Kubernetes的自定义 API 资源(CRD)，来描述我们想要部署的 “应用”;然后在自定义控制器里，根据自 定义 API 对象的变化，来完成具体的部署和 运维工作</li>
+</ul>
+<h5 id="istiooperator">例子:IstioOperator<a class="headerlink" href="#istiooperator" title="Permanent link">#</a></h5>
+<p>WebexCdpOperator?</p>
+<h5 id="operator-custom-controller">Operator (custom controller)开发框架<a class="headerlink" href="#operator-custom-controller" title="Permanent link">#</a></h5>
+<p>kubebuilder
+<a href="https://github.com/kubernetes-sigs/kubebuilder">https://github.com/kubernetes-sigs/kubebuilder</a></p>
+<p>Operator SDK
+<a href="https://github.com/operator-framework/operator-sdk">https://github.com/operator-framework/operator-sdk</a></p>
+<h5 id="kubebuilder-kubernetes">利用 kubebuilder 实现Kubernetes开发<a class="headerlink" href="#kubebuilder-kubernetes" title="Permanent link">#</a></h5>
+<ul>
+<li>初始化，生成代码框架</li>
+<li>创建API，生成controller 框架</li>
+<li>定义CRD，并编译</li>
+<li>生成 webhook 代码</li>
+<li>实现 controller 业务逻辑</li>
+</ul>
+<p><a href="https://book-v1.book.kubebuilder.io/getting_started/installation_and_setup.html">https://book-v1.book.kubebuilder.io/getting_started/installation_and_setup.html</a></p>
+<h5 id="kubebuilder">kubebuilder演示<a class="headerlink" href="#kubebuilder" title="Permanent link">#</a></h5>
+<ul>
+<li>脚手架初始化：<code>kubebuilder init --domain nick.io --repo nick.io/demos</code></li>
+<li>创建：<code>kubebuilder create api --group app --version v1 --kind WebexNick</code></li>
+<li>Golang实现各个接口</li>
+<li>TODO: 学习源码，写个小例子，设计Cdp资源</li>
+</ul>
+<h3 id="kubernetes_4">Kubernetes 编程范式总结<a class="headerlink" href="#kubernetes_4" title="Permanent link">#</a></h3>
+<ul>
+<li>声明式 API</li>
+<li>Controller</li>
+<li>CRD</li>
+<li>Operator</li>
+</ul>
+<hr />
+<h2 id="kubernetes_5">Kubernetes 调度与资源管理<a class="headerlink" href="#kubernetes_5" title="Permanent link">#</a></h2>
+<h3 id="kubernetes_6">Kubernetes 资源模型<a class="headerlink" href="#kubernetes_6" title="Permanent link">#</a></h3>
+<ul>
+<li>所有跟调度和资源管理相关的属性都应该是属于 Pod 级别</li>
+<li>资源类型:CPU 和内存配置</li>
+<li>Pod整体资源 = 所有容器资源和</li>
+</ul>
+<h4 id="requestlimit">资源设置 – request和limit<a class="headerlink" href="#requestlimit" title="Permanent link">#</a></h4>
+<ul>
+<li><code>requests</code>和<code>limits</code><ul>
+<li>kube-scheduler只会按照requests的值调度。</li>
+<li>设置Cgroups限制(Cgroups限制容器的资源使用情况)的时候，kubelet则会按照 limits 的值</li>
+</ul>
+</li>
+<li>单位:CPU个数;Mi/Gi...;M/G...</li>
+<li>动态资源边界</li>
+</ul>
+<p>建议：一定在容器的资源设置中加上<code>requests</code>和<code>limits</code>
+经验：<code>requests</code>设置保证服务能启动就行</p>
+<h4 id="podqos">Pod的服务质量(QoS)<a class="headerlink" href="#podqos" title="Permanent link">#</a></h4>
+<ul>
+<li>Guaranteed:<ul>
+<li>Pod中的每个容器(包含初始化容器)必须指定request和limit</li>
+<li>CPU和内存都要设置</li>
+<li>Request=limit</li>
+</ul>
+</li>
+<li>Burstable<ul>
+<li>Pod不满足Guaranteed的条件</li>
+<li>但至少有一个Container设置了requests</li>
+</ul>
+</li>
+<li>BestEffort:<ul>
+<li>Pod既没有设置requests，也没有设置limits</li>
+</ul>
+</li>
+</ul>
+<h4 id="eviction">资源回收(Eviction)<a class="headerlink" href="#eviction" title="Permanent link">#</a></h4>
+<ul>
+<li>Eviction:宿主机资源紧张时回收Pod</li>
+<li>触发条件:内存、磁盘等</li>
+<li>2种模式<ul>
+<li>Soft:优雅回收</li>
+<li>Hard:立刻回收</li>
+</ul>
+</li>
+<li>回收策略<ul>
+<li>根据QoS类别</li>
+<li>同类别根据优先级</li>
+<li>Guaranteed超过limit才考虑回收</li>
+</ul>
+</li>
+<li>cpuset设置<ul>
+<li>Guaranteed类型，request=limit，&gt;=1的整数</li>
+</ul>
+</li>
+</ul>
+<h3 id="kube-scheduler">调度器kube-scheduler<a class="headerlink" href="#kube-scheduler" title="Permanent link">#</a></h3>
+<ul>
+<li>职责:Pod -&gt; Node</li>
+<li>基本流程<ul>
+<li>检查并挑选Node</li>
+<li>根据适配度打分</li>
+<li>调度:设置 spec.nodeName</li>
+</ul>
+</li>
+</ul>
+<h4 id="_7">调度器工作原理<a class="headerlink" href="#_7" title="Permanent link">#</a></h4>
+<ul>
+<li>2个控制循环</li>
+<li>informer path<ul>
+<li>watch</li>
+<li>Priority Queue</li>
+<li>Cache</li>
+</ul>
+</li>
+<li>scheduling path<ul>
+<li>出队</li>
+<li>过滤</li>
+<li>打分</li>
+<li>绑定</li>
+</ul>
+</li>
+</ul>
+<h4 id="bind">绑定(Bind)<a class="headerlink" href="#bind" title="Permanent link">#</a></h4>
+<ul>
+<li>Assume<ul>
+<li>只更新cache的pod、node信息</li>
+<li>避免远程访问apiserver</li>
+</ul>
+</li>
+<li>Admit<ul>
+<li>kubelet做二次确认</li>
+<li>确认pod可以运行在被调度的node上</li>
+</ul>
+</li>
+</ul>
+<h4 id="_8">调度的性能优化设计<a class="headerlink" href="#_8" title="Permanent link">#</a></h4>
+<ul>
+<li>调度器的3个性能优化<ul>
+<li>cache化</li>
+<li>乐观绑定(异步bind)</li>
+<li>无锁化<ul>
+<li>启动多个Goroutine以node为粒度并发执行Predicates算法，提高执行效率</li>
+<li>Priorities算法以MapReduce的方式并行计算再进行汇总</li>
+<li>避免设置任何全局的竞争资源</li>
+<li>调度器只有对调度队列和SchedulerCache进行操作时，才需要加锁</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="_9">调度的可扩展性<a class="headerlink" href="#_9" title="Permanent link">#</a></h4>
+<p>Scheduling Cycle
+* Sort, (then pick a pod from scheduling queue)
+* PreFilter
+* Filter
+* PreScore
+* Score
+* Normalize Score
+* Reserve (reserve a node for the pod in cache)
+* Permit</p>
+<p>Binding Cycle
+* WaitOnPermit (internal api)
+* PreBind
+* Bind (Bind pod to node)
+* PostBind</p>
+<h3 id="-predicate">调度策略 - predicate<a class="headerlink" href="#-predicate" title="Permanent link">#</a></h3>
+<ul>
+<li>本质:一系列过滤器(filter)</li>
+<li>功能:按照调度策略，从所有节点中过滤出符合条件的节点</li>
+<li>3种类型<ul>
+<li>GeneralPredicates</li>
+<li>Volume相关</li>
+<li>宿主机相关</li>
+</ul>
+</li>
+<li><a href="https://kubernetes.io/docs/reference/scheduling/policies/">https://kubernetes.io/docs/reference/scheduling/policies/</a></li>
+</ul>
+<h4 id="-generalpredicates">基础策略 - GeneralPredicates<a class="headerlink" href="#-generalpredicates" title="Permanent link">#</a></h4>
+<ul>
+<li>负责的是最基础的调度策略</li>
+<li>常见策略举例<ul>
+<li>PodFitsResources 计算的就是宿主机的 CPU 和内存资源等是否够用(只检查request)</li>
+<li>external resource:其他非标准资源如gpu用key-value方式定义</li>
+<li>PodFitsHost :host = Pod 的 spec.nodeName(pod设置了)</li>
+<li>PodFitsHostPorts:Pod 申请的宿主机端口(spec.nodePort)是否被占用</li>
+<li>PodMatchNodeSelector :Pod 的 nodeSelector 或者 nodeAffinity 节点，是否与待考察节点匹配</li>
+</ul>
+</li>
+</ul>
+<h4 id="volume">Volume 策略<a class="headerlink" href="#volume" title="Permanent link">#</a></h4>
+<ul>
+<li>容器持久化 Volume 相关</li>
+<li>常见策略<ul>
+<li>NoDiskConflict:多个 Pod 声明挂载的持久化 Volume 是否有冲突。</li>
+<li>NoVolumeZoneConflict:存储的故障区域限制</li>
+<li>CheckVolumeBinding:根据Pod请求的容量和PVC是否匹配</li>
+</ul>
+</li>
+<li>LPV 必须使用 nodeAffinity 跟某个节点绑定</li>
+</ul>
+<h4 id="_10">宿主机相关策略<a class="headerlink" href="#_10" title="Permanent link">#</a></h4>
+<ul>
+<li>主要考察待调度 Pod 是否满足 Node 本身的某些条件</li>
+<li>PodToleratesNodeTaints:污点检查</li>
+</ul>
+<h3 id="predicate">Predicate 策略总结<a class="headerlink" href="#predicate" title="Permanent link">#</a></h3>
+<ul>
+<li>开始调度一个Pod时，调度器会同时启动 16 个 Goroutine来并发地为集群里的所有 Node 计算 Predicates，最后返回可以运行这个 Pod 的宿主机列表。</li>
+<li>在为每个Node执行Predicates时，调度 器会按照固定的顺序来进行检查。</li>
+</ul>
+<h3 id="-priority">调度策略 - priority<a class="headerlink" href="#-priority" title="Permanent link">#</a></h3>
+<ul>
+<li>功能:打分，得分最高即为所选Node</li>
+<li>常用规则:<ul>
+<li>LeastRequestedPriority:选择空闲资源最多的宿主机</li>
+<li>BalancedResourceAllocation:计算每两种资源 Fraction 之间的“距离”</li>
+<li>ImageLocalityPriority:节点上有需要的镜像，得分越高</li>
+<li>NodeAffinityPriority:节点亲和规则，满足字段越多，得分越高</li>
+</ul>
+</li>
+</ul>
+<h4 id="predicate-priority">从predicate到 priority的完整流程<a class="headerlink" href="#predicate-priority" title="Permanent link">#</a></h4>
+<h3 id="_11">调度优先级<a class="headerlink" href="#_11" title="Permanent link">#</a></h3>
+<ul>
+<li>优先级和抢占是调度器另一个重要特性</li>
+<li>解决问题的是Pod调度失败后的如何处理</li>
+<li>正常情况下，一个Pod调度失败后会被暂时挂起，直到Pod更新或集群状态变化后再重新调 度</li>
+<li>优先级的目的:高优先级的Pod调度失败后挤走低优先级的Pod</li>
+<li>PreemptionPolicy<ul>
+<li>PreemptLowerPriority</li>
+<li>Never</li>
+</ul>
+</li>
+</ul>
+<h4 id="preemption">抢占机制（Preemption）<a class="headerlink" href="#preemption" title="Permanent link">#</a></h4>
+<ul>
+<li>一个高优先级的 Pod (抢占者)调度失败，调度器的抢占能力被触发。</li>
+<li>调度器会试图从当前集群里寻找一个节点，删除一个或者多个低优先级 Pod</li>
+<li>高优先级 Pod 就可以被调度到这个节点上</li>
+<li>抢占发生时，抢占者不会立刻被调度到Node 上。</li>
+<li>调度器只会将抢占者的 spec.nominatedNodeName 字段设置为被抢占的 Node 的名字</li>
+<li>抢占者会重新进入下一个调度周期</li>
+<li>可能会被更高级别的抢占者插队</li>
+</ul>
+<h4 id="_12">抢占机制原理<a class="headerlink" href="#_12" title="Permanent link">#</a></h4>
+<ul>
+<li>高优先级挤走低优先级</li>
+<li>核心实现:2个队列<ul>
+<li>activeQ</li>
+<li>unschedulableQ</li>
+</ul>
+</li>
+<li>流程<ul>
+<li>检查失败原因</li>
+<li>模拟抢占</li>
+<li>执行抢占</li>
+</ul>
+</li>
+</ul>
+<h3 id="_13">亲和性与反亲和性<a class="headerlink" href="#_13" title="Permanent link">#</a></h3>
+<ul>
+<li>扩展了你可以表达约束的类型</li>
+<li>2种<ul>
+<li>Node节点亲和性</li>
+<li>pod 间亲和性与反亲和性</li>
+</ul>
+</li>
+</ul>
+<h4 id="_14">节点亲和性<a class="headerlink" href="#_14" title="Permanent link">#</a></h4>
+<ul>
+<li><code>affinity.nodeAffinity</code></li>
+<li>节点亲和性 配置<ul>
+<li>硬需求 <code>requiredDuringSchedulingIgnoredDuringExecution</code></li>
+<li>软需求 <code>preferredDuringSchedulingIgnoredDuringExecution</code></li>
+</ul>
+</li>
+<li>前者指定了将 Pod 调度到一个节点上 必须满足的规则</li>
+<li>后者指定调度器将尝试执行但不能保证</li>
+</ul>
+<h4 id="pod">Pod亲和性<a class="headerlink" href="#pod" title="Permanent link">#</a></h4>
+<ul>
+<li>基于已经在节点上运行的Pod的标签来约束Pod可以调度到的节点，而不是基于节点的标签</li>
+<li>规则格式:“如果X节点上已经运行了一个或多个满足规则Y的Pod，则当前Pod应该(或者不应该)运行在 X 节点”</li>
+<li>Pod间亲和性与反亲和性需要大量的处理，<strong>可能会减慢大规模集群中的调度</strong></li>
+<li>配置:<ul>
+<li><code>requiredDuringSchedulingIgnoredDuringExecution</code></li>
+<li><code>preferredDuringSchedulingIgnoredDuringExecution</code></li>
+</ul>
+</li>
+<li>Pod间亲和性通过PodSpec中<code>affinity</code>字段下的<code>podAffinity</code>字段进行指定</li>
+<li>Pod间反亲和性通过PodSpec中<code>affinity</code>字段下的<code>podAntiAffinity</code>字段进行指定</li>
+</ul>
+<h3 id="_15">污点和容忍度<a class="headerlink" href="#_15" title="Permanent link">#</a></h3>
+<ul>
+<li>Taint(污点):使节点能够排斥一类特定的Pod</li>
+<li>容忍度(Tolerations):允许Pod调度到带有与之匹配的污点的节点上</li>
+<li>Node可以添加多个污点</li>
+<li>Pod可以添加多个容忍度</li>
+<li>操作符operator<ul>
+<li>Exists</li>
+<li>Equals</li>
+</ul>
+</li>
+<li>effect<ul>
+<li>NoSchedule</li>
+<li>PreferNoSchedule</li>
+<li>NoExecute</li>
+</ul>
+</li>
+<li>应用场景<ul>
+<li>专用节点</li>
+<li>特殊硬件的节点</li>
+<li>基于污点的驱逐</li>
+<li>比如节点升级：先打污点将pod驱逐，再升级节点</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-yaml">
+</code></pre>
+<h3 id="-limitrange">资源的请求和限制 - LimitRange<a class="headerlink" href="#-limitrange" title="Permanent link">#</a></h3>
+<ul>
+<li>在namespace范围内，限制pod或container资源使用量的策略</li>
+<li>作用<ul>
+<li>限制namespace中每个pod或container的最小和最大资源用量。</li>
+<li>限制namespace中每个PVC的资源请求范围。</li>
+<li>限制namespace中资源请求和限制数量的比例。</li>
+<li>配置资源的默认限制</li>
+</ul>
+</li>
+<li>资源类型<ul>
+<li>Pod</li>
+<li>Container</li>
+<li>PVC</li>
+</ul>
+</li>
+<li>控制限制量和请求量的最大比例，即limit/request要求小于等于 maxLimitRequestRatio</li>
+</ul>
+<h4 id="_16">限制示例<a class="headerlink" href="#_16" title="Permanent link">#</a></h4>
+<ul>
+<li>配置规则<ul>
+<li>Request、limit都有</li>
+<li>没request，按limit</li>
+<li>没limit，按默认</li>
+</ul>
+</li>
+<li>只在Pod创建和更新时才强制执行</li>
+<li>更新LimitRange不会影响此前创建的Pod</li>
+<li>应用场景<ul>
+<li>命名空间有配额限制</li>
+<li>资源总和不能超过设定值</li>
+</ul>
+</li>
+</ul>
+<h3 id="-resoucequtoa">资源配额 - ResouceQutoa<a class="headerlink" href="#-resoucequtoa" title="Permanent link">#</a></h3>
+<ul>
+<li>实现资源消耗总量的限制</li>
+<li>两个作用<ul>
+<li>按类型限制命名空间下所创建对象的数量</li>
+<li>限制所消耗计算资源的总量</li>
+</ul>
+</li>
+<li>计算资源配额</li>
+<li>存储配额</li>
+<li>对象数量配额</li>
+</ul>
+<h3 id="_17">调度器小结<a class="headerlink" href="#_17" title="Permanent link">#</a></h3>
+<ul>
+<li>调度器工作原理</li>
+<li>调度算法、策略</li>
+<li>亲和性</li>
+<li>污点、容忍度</li>
+<li>资源限制</li>
+</ul>
+<hr />
+<h2 id="kubernetes_7">Kubernetes 未来展望<a class="headerlink" href="#kubernetes_7" title="Permanent link">#</a></h2>
+<ul>
+<li><a href="https://www.eficode.com/blog/the-future-of-kubernetes-and-why-developers-should-look-beyond-kubernetes-in-2022">https://www.eficode.com/blog/the-future-of-kubernetes-and-why-developers-should-look-beyond-kubernetes-in-2022</a></li>
+<li>安全：OIDC vs Secret<ul>
+<li>Secret对象还是有可能会被保存在pipeline中</li>
+<li><a href="https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens">https://kubernetes.io/zh-cn/docs/reference/access-authn-authz/authentication/#openid-connect-tokens</a></li>
+<li><a href="https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/">https://kubernetes.io/docs/reference/kubernetes-api/config-and-storage-resources/secret-v1/</a></li>
+</ul>
+</li>
+<li>网络：Gateway API vs Ingress<ul>
+<li>Ingress的能力被认为比较弱，Ingress在service mesh里是个鸡肋</li>
+<li>Gateway API</li>
+<li><a href="https://kubernetes.io/zh-cn/blog/2022/07/13/gateway-api-graduates-to-beta/">https://kubernetes.io/zh-cn/blog/2022/07/13/gateway-api-graduates-to-beta/</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/ingress/">https://kubernetes.io/docs/concepts/services-networking/ingress/</a></li>
+</ul>
+</li>
+<li>自动扩展（水平伸缩）：HPA / CA / KEDA<ul>
+<li>HPA是基于pod层面的水平伸缩</li>
+<li>CA cluster-autoscaling 是在node层面的水平伸缩</li>
+<li>KEDA认为自动扩展不仅仅是基于资源的扩展，也应该基于事件来自动扩展</li>
+<li><a href="https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/">https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/horizontal-pod-autoscaler-v2/</a></li>
+<li><a href="https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler">https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler</a></li>
+<li><a href="https://keda.sh/">https://keda.sh/</a></li>
+</ul>
+</li>
+<li>存储：PV vs 对象存储<ul>
+<li>PV不是很好的practice，有PV意味着对存储有依赖，应尽可能基于对象存储</li>
+</ul>
+</li>
+<li>Kubernetes未来：基于CRD的抽象平台<ul>
+<li>custom resource definition</li>
+<li>Kubernetes提供了CRD的扩展</li>
+</ul>
+</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../k8s_installation_tools/" class="btn btn-neutral float-left" title="Kubernetes 集群常用工具"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../my-cloudnative/cloud-native-fundamentals/" class="btn btn-neutral float-right" title="Cloud Native Fundamentals">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/turbov10/turbov10.github.io/" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../k8s_installation_tools/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../my-cloudnative/cloud-native-fundamentals/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../..";</script>
+    <script src="../../js/theme_extra.js"></script>
+    <script src="../../js/theme.js"></script>
+      <script src="../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

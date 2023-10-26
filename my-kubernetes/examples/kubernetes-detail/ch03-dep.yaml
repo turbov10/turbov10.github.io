@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myoperator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myoperator
+  template:
+    metadata:
+      labels:
+        app: myoperator
+    spec:
+      containers:
+      - name: myoperator
+        image: rfma/operator
+        imagePullPolicy: IfNotPresent

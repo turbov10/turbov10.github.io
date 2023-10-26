@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  nodeSelector: 
+    kubernetes.io/hostname: ip-172-31-28-81.ec2.internal
+  #nodeName: xxx
+  hostAliases: 
+  - ip: "127.0.0.1"
+    hostnames: 
+    - "a.mypod.com"
+  shareProcessNamespace: true
+  #hostNetwork: true
+  #hostIPC: true
+  #hostPID: true
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent

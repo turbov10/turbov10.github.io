@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html class="writer-html5" lang="zh_CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://turbov10.github.io/my-docs/mkdocs/" rel="canonical"/>
+<link href="../../img/favicon.ico" rel="shortcut icon"/>
+<title>MkDocs - Turbo-v10's Documentation</title>
+<link href="../../css/theme.css" rel="stylesheet"/>
+<link href="../../css/theme_extra.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" rel="stylesheet"/>
+<link href="../../css/extra.css" rel="stylesheet"/>
+<script>
+        // Current page data
+        var mkdocs_page_name = "MkDocs";
+        var mkdocs_page_input_path = "my-docs/mkdocs.md";
+        var mkdocs_page_url = "/my-docs/mkdocs/";
+      </script>
+<!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/yaml.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/rust.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/sh.min.js"></script>
+<script>hljs.highlightAll();</script>
+</head>
+<body class="wy-body-for-nav" role="document">
+<div class="wy-grid-for-nav">
+<nav class="wy-nav-side stickynav" data-toggle="wy-nav-shift">
+<div class="wy-side-scroll">
+<div class="wy-side-nav-search">
+<a class="icon icon-home" href="../.."> Turbo-v10's Documentation
+        </a><div role="search">
+<form action="../../search.html" class="wy-form" id="rtd-search-form" method="get">
+<input aria-label="Search docs" name="q" placeholder="Search docs" title="Type search term here" type="text"/>
+</form>
+</div>
+</div>
+<div aria-label="Navigation menu" class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Kubernetes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../my-kubernetes/kubernetes/">Kubernetes</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-kubernetes/k8s_installation_cr/">Kubernetes 容器运行时安装</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-kubernetes/k8s_installation/">Kubernetes 集群搭建</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-kubernetes/k8s_installation_tools/">Kubernetes 集群常用工具</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-kubernetes/k8s-lesson-20221124/">Kubernetes 基础课 (2022-11-24)</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Cloud Native</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/cloud-native-fundamentals/">Cloud Native Fundamentals</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-cloudnative/containerd/">containerd</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">CI/CD</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../my-cicd/github-actions/">GitHub Actions</a>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../my-cicd/harness/">Harness</a>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Doc Tools</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal current" href="./">MkDocs</a>
+</li>
+</ul>
+</div>
+</div>
+</nav>
+<section class="wy-nav-content-wrap" data-toggle="wy-nav-shift">
+<nav aria-label="Mobile navigation menu" class="wy-nav-top" role="navigation">
+<i class="fa fa-bars" data-toggle="wy-nav-top"></i>
+<a href="../..">Turbo-v10's Documentation</a>
+</nav>
+<div class="wy-nav-content">
+<div class="rst-content"><div aria-label="breadcrumbs navigation" role="navigation">
+<ul class="wy-breadcrumbs">
+<li><a aria-label="Docs" class="icon icon-home" href="../.."></a></li>
+<li class="breadcrumb-item">Doc Tools</li>
+<li class="breadcrumb-item active">MkDocs</li>
+<li class="wy-breadcrumbs-aside">
+<a class="icon icon-github" href="https://github.com/turbov10/turbov10.github.io/blob/main/docs/my-docs/mkdocs.md"> Edit on GitHub</a>
+</li>
+</ul>
+<hr/>
+</div>
+<div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
+<div class="section" itemprop="articleBody">
+<h1 id="welcome-to-mkdocs">Welcome to MkDocs<a class="headerlink" href="#welcome-to-mkdocs" title="Permanent link">#</a></h1>
+<p>MkDocs is a fast, simple and downright gorgeous static site generator that's geared towards building project documentation.
+Documentation source files are written in Markdown, and configured with a single YAML configuration file.
+Start by reading the introductory tutorial, then check the User Guide for more information.</p>
+<p>For full documentation visit <a href="https://mkdocs.org">mkdocs.org</a>.</p>
+<h2 id="commands">Commands<a class="headerlink" href="#commands" title="Permanent link">#</a></h2>
+<ul>
+<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
+<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
+<li><code>mkdocs build</code> - Build the documentation site.</li>
+<li><code>mkdocs help</code> - Print this help message.</li>
+</ul>
+<h2 id="project-layout">Project layout<a class="headerlink" href="#project-layout" title="Permanent link">#</a></h2>
+<pre><code>mkdocs.yml    # The configuration file.
+docs/
+    index.md  # The documentation homepage.
+    ...       # Other markdown pages, images and other files.
+</code></pre>
+<h2 id="plugins">Plugins<a class="headerlink" href="#plugins" title="Permanent link">#</a></h2>
+<h4 id="mermaid2">mermaid2<a class="headerlink" href="#mermaid2" title="Permanent link">#</a></h4>
+<p><a href="https://github.com/fralau/mkdocs-mermaid2-plugin">https://github.com/fralau/mkdocs-mermaid2-plugin</a></p>
+</div>
+</div><footer>
+<div aria-label="Footer Navigation" class="rst-footer-buttons" role="navigation">
+<a class="btn btn-neutral float-left" href="../../my-cicd/harness/" title="Harness"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+</div>
+<hr/>
+<div role="contentinfo">
+<!-- Copyright etc -->
+</div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+</div>
+</div>
+</section>
+</div>
+<div aria-label="Versions" class="rst-versions" role="note">
+<span class="rst-current-version" data-toggle="rst-current-version">
+<span>
+<a class="fa fa-github" href="https://github.com/turbov10/turbov10.github.io/" style="color: #fcfcfc"> GitHub</a>
+</span>
+<span><a href="../../my-cicd/harness/" style="color: #fcfcfc">« Previous</a></span>
+</span>
+</div>
+<script src="../../js/jquery-3.6.0.min.js"></script>
+<script>var base_url = "../..";</script>
+<script src="../../js/theme_extra.js"></script>
+<script src="../../js/theme.js"></script>
+<script src="../../search/main.js"></script>
+<script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+</body>
+</html>
